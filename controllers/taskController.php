@@ -21,11 +21,10 @@ switch($request_method) {
         break;
 
     case 'POST':
-        $data = json_decode(file_get_contents("php://input")); // Decode as object
+        $data = json_decode(file_get_contents("php://input")); 
 
-        // Check if data is an array or an object
         if (is_array($data)) {
-            // If it's an array, process each item
+           
             foreach ($data as $item) {
                 if(isset($item->project_id) && isset($item->user_id) && isset($item->name) && isset($item->description)) {
                     $task->project_id = $item->project_id;
@@ -44,7 +43,7 @@ switch($request_method) {
             }
             echo json_encode(["message" => "Tasks were created."]);
         } else {
-            // Handle single object case
+           
             if(isset($data->project_id) && isset($data->user_id) && isset($data->name) && isset($data->description)) {
                 $task->project_id = $data->project_id;
                 $task->user_id = $data->user_id;
@@ -63,7 +62,7 @@ switch($request_method) {
         break;
 
     case 'PUT':
-        $data = json_decode(file_get_contents("php://input")); // Decode as object
+        $data = json_decode(file_get_contents("php://input")); 
 
         if(isset($data->id) && isset($data->project_id) && isset($data->user_id) && isset($data->name) && isset($data->description)) {
             $task->id = $data->id;
@@ -83,7 +82,7 @@ switch($request_method) {
         break;
 
     case 'DELETE':
-        $data = json_decode(file_get_contents("php://input")); // Decode as object
+        $data = json_decode(file_get_contents("php://input")); 
 
         if(isset($data->id)) {
             $task->id = $data->id;

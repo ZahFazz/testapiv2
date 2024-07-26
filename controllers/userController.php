@@ -21,9 +21,8 @@ switch($request_method) {
         break;
 
     case 'POST':
-        $data = json_decode(file_get_contents("php://input"), true); // Decode JSON as an associative array
-        if (isset($data[0])) { // Check if it's an array of users
-            $response = [];
+        $data = json_decode(file_get_contents("php://input"), true); 
+        if (isset($data[0])) {
             foreach ($data as $userData) {
                 $user->name = $userData['name'];
                 $user->email = $userData['email'];
@@ -48,8 +47,7 @@ switch($request_method) {
         break;
 
    case 'PUT':
-        $data = json_decode(file_get_contents("php://input"), true); // Decode JSON as associative array
-        $user->id = $data['id'] ?? null;
+        $data = json_decode(file_get_contents("php://input"), true); 
         $user->name = $data['name'] ?? null;
         $user->email = $data['email'] ?? null;
         $user->avatar = $data['avatar'] ?? null;

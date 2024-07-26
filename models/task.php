@@ -22,27 +22,24 @@ class Task {
     }
 
     public function create() {
-        // Check if project_id and user_id exist
         $project_query = "SELECT id FROM projects WHERE id = :project_id";
         $user_query = "SELECT id FROM users WHERE id = :user_id";
-    
-        // Check Project
+
         $stmt = $this->conn->prepare($project_query);
         $stmt->bindParam(":project_id", $this->project_id);
         $stmt->execute();
         if ($stmt->rowCount() == 0) {
-            return false; // or handle error
+            return false; 
         }
-    
-        // Check User
+
         $stmt = $this->conn->prepare($user_query);
         $stmt->bindParam(":user_id", $this->user_id);
         $stmt->execute();
         if ($stmt->rowCount() == 0) {
-            return false; // or handle error
+            return false; 
         }
     
-        // If valid, proceed with insert
+  
         $query = "INSERT INTO " . $this->table_name . " SET project_id=:project_id, user_id=:user_id, name=:name, description=:description";
         $stmt = $this->conn->prepare($query);
     

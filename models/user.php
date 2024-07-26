@@ -42,22 +42,18 @@ class User {
         $query = "UPDATE " . $this->table_name . " SET name=:name, email=:email, avatar=:avatar WHERE id=:id";
         $stmt = $this->conn->prepare($query);
 
-        $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->avatar = htmlspecialchars(strip_tags($this->avatar));
-        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->email=htmlspecialchars(strip_tags($this->email));
+        $this->avatar=htmlspecialchars(strip_tags($this->avatar));
+        $this->id=htmlspecialchars(strip_tags($this->id));
 
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":avatar", $this->avatar);
         $stmt->bindParam(":id", $this->id);
 
-        try {
-            if ($stmt->execute()) {
-                return true;
-            }
-        } catch (PDOException $e) {
-            error_log("Update Error: " . $e->getMessage());
+        if($stmt->execute()) {
+            return true;
         }
         return false;
     }
